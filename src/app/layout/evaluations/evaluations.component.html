@@ -1,0 +1,59 @@
+<p-toast></p-toast>
+<h3>Add Score Evaluation</h3>
+<div [hidden]="submitted" style="width: 400px;">
+    <form [formGroup]="evaluationForm">
+          <div class="form-group">
+            <label for="score">Score</label>
+            <input id="score" type="text" formControlName="score" required class="form-control"/>
+          </div>
+
+          <div class="form-group">
+              <p-autoComplete formControlName="teacher" field="name"
+                                                          [suggestions]="filterOptionsTeachers"
+                                                          (completeMethod)="filtrarTeachers($event)"
+                                                          id="teacher"
+                                                          dataKey="id"
+                                                          emptyMessage="Not Found Teacher"
+                                                          required
+                                                          name="teacher" minLength="1" delay="300"
+                                                          [dropdown]="true"
+                                                          placeholder="Please select Teacher"
+                                                          [forceSelection]="true">
+                                              <ng-template let-teacherItem pTemplate="item">
+                                                  <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                                                      <div style="font-size:18px;float:right;margin:10px 10px 0 0">
+                                                          {{teacherItem?.name}}
+                                                      </div>
+                                                  </div>
+                                              </ng-template>
+                                          </p-autoComplete>
+          </div>
+
+          <div class="form-group">
+              <p-autoComplete formControlName="student" field="name"
+                    [suggestions]="filterOptionsStudents"
+                    (completeMethod)="filtrarStudents($event)"
+                    id="student"
+                    dataKey="id"
+                    emptyMessage="Not Found student"
+                    required
+                    name="student" minLength="1" delay="300"
+                    [dropdown]="true"
+                    placeholder="Please select student"
+                    [forceSelection]="true">
+                    <ng-template let-studentItem pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                        <div style="font-size:18px;float:right;margin:10px 10px 0 0">
+                            {{studentItem?.name}}
+                        </div>
+                    </div>
+                    </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="form-group">
+            <button type="submit" label="Guardar" [disabled]="!evaluationForm.valid"
+                  class="btn btn-success" (click)="guardar()">Save</button>
+            <button type="button" label="Cancelar" (click)="cancelar()" class="btn btn-danger">Cancel</button>
+        </div>
+  </form>
+</div>

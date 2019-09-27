@@ -1,0 +1,33 @@
+<div class="form-group">
+    <label for="sizePerPage">Records Per Page</label>
+    <select (change)="changeItemsPerPage($event.target.value)" name="sizePerPage" [(ngModel)]="nroFilasPorPagina"
+       class="form-control" >
+        <option value="">Select Size</option>
+        <option  *ngFor="let option of this.options" [value]="option">
+          {{option}}
+        </option>
+      </select>
+  </div>
+
+<p-table [columns]="cols" [value]="users" [lazy]="true" (onLazyLoad)="loadUsersLazy($event)" [paginator]="true"
+    [rows]="nroFilasPorPagina" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>View</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <button (click)="userDetails(rowData.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+            </td>
+        </tr>
+
+    </ng-template>
+</p-table>
